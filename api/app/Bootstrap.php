@@ -6,9 +6,15 @@ namespace App;
 
 use Nette\Bootstrap\Configurator;
 
-
+/**
+ * Class Bootstrap
+ * @package App
+ */
 class Bootstrap
 {
+    /**
+     * @return Configurator
+     */
 	public static function boot(): Configurator
 	{
 		$configurator = new Configurator;
@@ -27,6 +33,7 @@ class Bootstrap
 		$configurator->addConfig($appDir . '/config/common.neon');
 		$configurator->addConfig($appDir . '/config/services.neon');
 		$configurator->addConfig($appDir . '/config/local.neon');
+		$configurator->addConfig($appDir . '/config/extensions.neon');
 
 		return $configurator;
 	}
