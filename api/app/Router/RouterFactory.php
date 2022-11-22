@@ -26,7 +26,7 @@ final class RouterFactory
 	{
 		$router = new RouteList;
 		$router[] = new ApiRoute("/users/find/<id>", "Users:find");
-        $router[] = new ApiRoute("/users/find/<id>/reviews", "Users:findCategories");
+        $router[] = new ApiRoute("/users/find/<id>/reviews", "Users:findCategories"); // TODO: zkusit udělat i na withModule
         $router[] = new ApiRoute("/users/find/<id>/quizzes", "Users:findQuizzes");
         $router[] = new ApiRoute("/users/all/<pagination>", "Users:all");
         $router[] = new ApiRoute("/users/new", "Users:new");
