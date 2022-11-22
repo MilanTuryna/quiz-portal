@@ -1,0 +1,11 @@
+# IDE
+.idea
+
+# API, Nette
+
+api/config/local.neon
+api/bin
+api/log
+api/temp
+api/vendor
+
