@@ -8,7 +8,10 @@ use Contributte\ApiRouter\ApiRoute;
 use Nette;
 use Nette\Application\Routers\RouteList;
 
-
+/**
+ * Class RouterFactory
+ * @package App\Router
+ */
 final class RouterFactory
 {
 	use Nette\StaticClass;
@@ -25,32 +28,35 @@ final class RouterFactory
 	public static function createRouter(): RouteList
 	{
 		$router = new RouteList;
-		$router[] = new ApiRoute("/users/search/<username>", "Users:search");
-		$router[] = new ApiRoute("/users/find/<id>", "Users:find");
-        $router[] = new ApiRoute("/users/find/<id>/reviews", "Users:findCategories"); // TODO: zkusit udělat i na withModule
-        $router[] = new ApiRoute("/users/find/<id>/quizzes", "Users:findQuizzes");
-        $router[] = new ApiRoute("/users/all/<pagination>", "Users:all");
-        $router[] = new ApiRoute("/users/new", "Users:new");
+		$router->addRoute("/api/", "Home:default");
 
-        $router[] = new ApiRoute("/categories/all/<pagination>", "Categories:all");
-        $router[] = new ApiRoute("/categories/find/<categoryName>", "Categories:find");
-        $router[] = new ApiRoute("/categories/find/<categoryName>/quizzes", "Categories:findQuizzes");
+		$router[] = new ApiRoute("/api/users/search/<username>", "Users:search");
+		$router[] = new ApiRoute("/api/users/find/<id>", "Users:find");
+        $router[] = new ApiRoute("/api/users/find/<id>/reviews", "Users:findCategories"); // TODO: zkusit udělat i na withModule
+        $router[] = new ApiRoute("/api/users/find/<id>/quizzes", "Users:findQuizzes");
+        $router[] = new ApiRoute("/api/users/all/<pagination>", "Users:all");
+        $router[] = new ApiRoute("/api/users/new", "Users:new");
 
-        $router[] = new ApiRoute("/quizzes/search/<name>", "Quizzes:search");
-        $router[] = new ApiRoute("/quizzes/all/<pagination>?orderBy=[<orderBy>]", "Quizzes:all");
-        $router[] = new ApiRoute("/quizzes/find/<id>/categories", "Quizzes:findCategories");
-        $router[] = new ApiRoute("/quizzes/find/<id>/questions", "Quizzes:findQuestions");
-        $router[] = new ApiRoute("/quizzes/find/<id>/reviews", "Quizzes:findReviews");
-        $router[] = new ApiRoute("/quizzes/find/<id>/tags", "Quizzes:findTags");
-        $router[] = new ApiRoute("/quizzes/find/<id>", "Quizzes:find");
+        $router[] = new ApiRoute("/api/categories/all/<pagination>", "Categories:all");
+        $router[] = new ApiRoute("/api/categories/find/<categoryName>", "Categories:find");
+        $router[] = new ApiRoute("/api/categories/find/<categoryName>/quizzes", "Categories:findQuizzes");
 
-        $router[] = new ApiRoute("/reviews/all/<pagination>?orderBy=[<orderBy>]", "Reviews:all");
-        $router[] = new ApiRoute("/reviews/find/<id>", "Reviews:find");
+        $router[] = new ApiRoute("/api/quizzes/search/<name>", "Quizzes:search");
+        $router[] = new ApiRoute("/api/quizzes/all/<pagination>?orderBy=[<orderBy>]", "Quizzes:all");
+        $router[] = new ApiRoute("/api/quizzes/find/<id>/categories", "Quizzes:findCategories");
+        $router[] = new ApiRoute("/api/quizzes/find/<id>/questions", "Quizzes:findQuestions");
+        $router[] = new ApiRoute("/api/quizzes/find/<id>/reviews", "Quizzes:findReviews");
+        $router[] = new ApiRoute("/api/quizzes/find/<id>/tags", "Quizzes:findTags");
+        $router[] = new ApiRoute("/api/quizzes/find/<id>", "Quizzes:find");
+        $router[] = new ApiRoute("/quizzes/new", "Quizzes:new");
 
-        $router[] = new ApiRoute("/questions/find/<id>", "Questions:find");
+        $router[] = new ApiRoute("/api/reviews/all/<pagination>?orderBy=[<orderBy>]", "Reviews:all");
+        $router[] = new ApiRoute("/api/reviews/find/<id>", "Reviews:find");
+
+        $router[] = new ApiRoute("/api/questions/find/<id>", "Questions:find");
 
         $router[] = new ApiRoute("/tags/all/<pagination>", "Tags:all");
-        $router[] = new ApiRoute("/tags/find/<tagName>", "Tags:find");
+        $router[] = new ApiRoute("/api/tags/find/<tagName>", "Tags:find");
 
 		return $router;
 	}
