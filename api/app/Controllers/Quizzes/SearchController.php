@@ -5,10 +5,9 @@ namespace App\Controllers\Quizzes;
 
 
 use App\Controllers\BaseController;
-use App\Database\Table;
+use App\Database\Repository\QuizRepository;
 use App\Http\ResponseFormatter;
 use App\Http\Responses\JsonResponse;
-use Contributte\Elastica;
 use Nette\Application\AbortException;
 use Nette\Database\Explorer;
 
@@ -18,20 +17,19 @@ use Nette\Database\Explorer;
  */
 class SearchController extends BaseController
 {
-    private Elastica\Client $es;
+    private QuizRepository $quizRepository;
 
     /**
      * SearchController constructor.
      * @param ResponseFormatter $formatter
      * @param Explorer $explorer
-     * @param Elastica\Client $es
+     * @param QuizRepository $quizRepository
      */
-    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Elastica\Client $es)
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, QuizRepository $quizRepository)
     {
         parent::__construct($formatter, $explorer);
 
-        $this->es->
-        $this->es = $es;
+        $this->quizRepository = $quizRepository;
     }
 
     /**
@@ -39,11 +37,9 @@ class SearchController extends BaseController
      * @throws AbortException
      */
     public function actionRead(string $name): void {
-        $tableName = Table::QUIZZES;
-        $row = $this->explorer->query('SELECT * FROM ' . $tableName . ' WHERE MATCH(name) AGAINST(?)', [$name])->fetchAll();
-        $code = $row ? 200 : 404;
-        $content = $this->formatter->formatContent(['quizzes' => $row], $code);
-        $response = new JsonResponse($content, $code, true);
+        $search = $this->quizRepository->search($name);
+        $content = $this->formatter->formatContent($search, 200);
+        $response = new JsonResponse($content, 200, true);
         $this->sendResponse($response);
     }
 }
