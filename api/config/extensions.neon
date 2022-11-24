@@ -1,2 +1,2 @@
 extensions:
-	elastica: Contributte\Elastica\DI\ElasticaExtension
+    elastica: App\Extensions\Elastica\DI\ElasticaExtension
