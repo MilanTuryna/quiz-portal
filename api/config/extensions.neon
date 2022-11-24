@@ -1,0 +1,2 @@
+extensions:
+	elastica: Contributte\Elastica\DI\ElasticaExtension
