@@ -6,7 +6,7 @@ use App\Database\Table;
 use App\ElasticSearch\AbstractRepository;
 use App\ElasticSearch\ElasticaUtils;
 use App\Http\ResponseFormatter;
-use Contributte\Elastica\Client;
+use App\Extensions\Elastica\Client;
 use Nette\Database\Explorer;
 use Elastica;
 
