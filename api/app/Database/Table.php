@@ -8,5 +8,5 @@ namespace App\Database;
  */
 class Table
 {
-    const QUIZZES = "quizzes";
+    const QUIZ = "quiz";
 }
