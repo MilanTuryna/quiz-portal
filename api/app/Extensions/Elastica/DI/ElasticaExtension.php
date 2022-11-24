@@ -5,12 +5,12 @@ declare (strict_types = 1);
 namespace App\Extensions\Elastica\DI;
 
 use App\Extensions\Elastica\Client as ExtensionClient;
-use Contributte\Elastica\Diagnostics\Panel;
 use Nette\DI\CompilerExtension;
 use Nette\PhpGenerator\ClassType;
 use Nette\PhpGenerator\PhpLiteral;
 use Nette\Schema\Expect;
 use Nette\Schema\Schema;
+use Panel;
 use stdClass;
 use Tracy\Debugger;
 
