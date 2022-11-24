@@ -2,7 +2,7 @@
 
 namespace App\ElasticSearch;
 
-use Contributte\Elastica\Client;
+use Nette\Database\Explorer;
 
 /**
  * Class AbstractRepository
@@ -11,14 +11,14 @@ use Contributte\Elastica\Client;
 abstract class AbstractRepository
 {
     protected string $table;
-    protected Client $es;
+    protected Explorer $explorer;
 
     /**
      * AbstractRepository constructor.
      * @param string $table In elastic search type == table of MySQL
      */
-    public function __construct(string $table, Client $es) {
+    public function __construct(string $table, Explorer $explorer) {
         $this->table = $table;
-        $this->es = $es;
+        $this->explorer = $explorer;
     }
 }
