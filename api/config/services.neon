@@ -1,5 +1,7 @@
 services:
 	router: App\Router\RouterFactory::createRouter
+	elasticSearch.settings: App\ElasticSearch\Settings('quiz-portal')
+	elasticSearch.tableIndexer: App\ElasticSearch\TableIndexer
 
 	responseFormatter: App\Http\ResponseFormatter
 
