@@ -22,7 +22,7 @@
 		"tracy/tracy": "^2.8",
 		"contributte/api-router": "^4.2",
       "ext-json": "*",
-		"contributte/elastica": "^1.1"
+		"ruflin/elastica": "^7.2"
     },
 	"require-dev": {
 		"nette/tester": "^2.3",
