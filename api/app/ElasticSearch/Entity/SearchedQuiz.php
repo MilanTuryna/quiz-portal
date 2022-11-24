@@ -6,7 +6,7 @@ namespace App\ElasticSearch\Entity;
  * Class Quiz
  * @package App\ElasticSearch\Entity
  */
-final class Quiz
+final class SearchedQuiz
 {
     const name = "name";
     const description = "description";
