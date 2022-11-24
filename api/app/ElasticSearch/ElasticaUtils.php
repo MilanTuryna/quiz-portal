@@ -1,6 +1,7 @@
 <?php
 
 namespace App\ElasticSearch;
+
 /**
  * Class ElasticaUtils
  * @package App\ElasticSearch
