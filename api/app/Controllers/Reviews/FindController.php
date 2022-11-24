@@ -4,13 +4,13 @@
 namespace App\Controllers\Reviews;
 
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
 /**
  * Class FindController
  * @package App\Controllers\Reviews0
  */
-class FindController extends Presenter
+class FindController extends BaseController
 {
     public function actionRead(int $id) {
 

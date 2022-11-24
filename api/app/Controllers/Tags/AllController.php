@@ -2,13 +2,13 @@
 
 namespace App\Categories\AllController;
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
 /**
  * Class AllController
  * @package App\Categories\AllController
  */
-class AllController extends Presenter
+class AllController extends BaseController
 {
     /**
      * @param int $pagination

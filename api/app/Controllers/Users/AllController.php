@@ -4,9 +4,9 @@
 namespace App\Controllers\Users;
 
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
-class AllController extends Presenter
+class AllController extends BaseController
 {
     public function actionRead() {
 

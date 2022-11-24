@@ -4,9 +4,13 @@
 namespace App\Controllers\Categories;
 
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
-class NewController extends Presenter
+/**
+ * Class NewController
+ * @package App\Controllers\Categories
+ */
+class NewController extends BaseController
 {
     public function actionCreate() {
 

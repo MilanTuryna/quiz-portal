@@ -2,13 +2,13 @@
 
 namespace App\Controllers\Categories;
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
 /**
  * Class FindController
  * @package App\Controllers\Categories
  */
-class FindController extends Presenter
+class FindController extends BaseController
 {
     public function actionRead() {
 

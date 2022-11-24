@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Users;
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
-class FindController extends Presenter
+class FindController extends BaseController
 {
     /**
      * @param int $userId

@@ -2,9 +2,9 @@
 
 namespace App\Controllers\Categories;
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
-class FindQuizzesController extends Presenter
+class FindQuizzesController extends BaseController
 {
     public function actionRead() {
 

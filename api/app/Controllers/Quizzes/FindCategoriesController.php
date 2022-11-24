@@ -4,13 +4,13 @@
 namespace App\Controllers\Quizzes;
 
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
 /**
  * Class FindCategoriesController
  * @package App\Controllers\Quizzes
  */
-class FindCategoriesController extends Presenter
+class FindCategoriesController extends BaseController
 {
     public function actionRead() {
 

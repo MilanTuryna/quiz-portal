@@ -4,11 +4,22 @@
 namespace App\Controllers\Quizzes;
 
 
-use Nette\Application\UI\Presenter;
+use App\Http\Responses\JsonResponse;
+use Nette\Application\AbortException;
+use App\Controllers\BaseController;
 
-class NewController extends Presenter
+/**
+ * Class NewController
+ * @package App\Controllers\Quizzes
+ */
+class NewController extends BaseController
 {
+    /**
+     * @throws AbortException
+     */
     public function actionCreate() {
-
+        $content = $this->formatter->formatContent(["message" => "create"], 201);
+        $response = new JsonResponse($content);
+        $this->sendResponse($response);
     }
 }

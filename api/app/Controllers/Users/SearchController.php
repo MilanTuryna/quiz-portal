@@ -4,13 +4,13 @@
 namespace App\Controllers\Users;
 
 
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
 /**
  * Class SearchController
  * @package App\Controllers\Users
  */
-class SearchController extends Presenter
+class SearchController extends BaseController
 {
     /**
      * @param string $username
