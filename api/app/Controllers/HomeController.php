@@ -4,13 +4,13 @@ namespace App\Controllers;
 
 use Nette\Application\AbortException;
 use Nette\Application\Responses\TextResponse;
-use Nette\Application\UI\Presenter;
+use App\Controllers\BaseController;
 
 /**
  * Class HomeController
  * @package App\Controllers
  */
-class HomeController extends Presenter
+class HomeController extends BaseController
 {
     /**
      * @throws AbortException
