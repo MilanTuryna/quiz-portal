@@ -4,7 +4,9 @@
 namespace App\ElasticSearch;
 
 
-use Contributte\Elastica\Client;
+use App\Database\Entity\Quiz;
+use App\Extensions\Elastica\Client;
+use Elastica\Document;
 use Nette\Database\Explorer;
 
 /**
@@ -42,15 +44,25 @@ class TableIndexer
      */
     public function indexAll(string $table): int
     {
+        /**
+         * @var $rows Quiz[]
+         */
         $rows = $this->explorer->table($table)->fetchAll();
         $index = $this->client->getIndex($this->indexName);
+        $mapping = $index->getMapping()['properties'];
+
+        $documents = [];
         foreach	($rows as $row) {
-            $index->create([
-                'type' => $table,
-                'id' => $row['id'],
-                'body' => $row->toArray()
-            ]);
+            $data = [];
+            foreach (array_keys($mapping) as $property) {
+                if(isset($row->{$property})) {
+                    $data[$property] = $row->{$property};
+                }
+            }
+            $documents[] = new Document($row->id, $data);
         }
+        $index->addDocuments($documents);
+        $index->refresh();
 
         return count($rows);
     }
