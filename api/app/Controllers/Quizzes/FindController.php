@@ -27,7 +27,7 @@ class FindController extends BaseController
      * @throws AbortException
      */
     public function actionDelete(int $id): void {
-        $affectedRows = $this->explorer->table(Table::QUIZZES)->wherePrimary($id)->delete();
+        $affectedRows = $this->explorer->table(Table::QUIZ)->wherePrimary($id)->delete();
         $response = new JsonResponse([
             'affectedRows' => $affectedRows
         ], 200);
