@@ -16,10 +16,12 @@ class ElasticaUtils
     public static function formatSearch(string $table, array $result): array
     {
         $return = [
-            'total' => $result['hits']['total'],
+            'total' => $result['hits']['total'] ?? ["value" => 0],
             $table => []
         ];
-        foreach ($result['hits']['hits'] as $row) $return[$table][] = $row['_source'];
+        if(count($result) !== 0) {
+            foreach ($result['hits']['hits'] as $row) $return[$table][] = $row['_source'];
+        }
         return $return;
     }
 }
