@@ -2,10 +2,10 @@
 
 namespace App\Database\Repository;
 
+use App\Database\Entity\Quiz;
 use App\Database\Table;
 use App\ElasticSearch\AbstractRepository;
 use App\ElasticSearch\ElasticManager;
-use App\ElasticSearch\Entity\SearchedQuiz;
 use Nette\Database\Explorer;
 
 /**
@@ -33,8 +33,8 @@ class QuizRepository extends AbstractRepository
      * Maybe add as filtered term description also
      */
     public function search(string $name): array {
-        if($this->elasticManager->getClient()->isEnabled()) return $this->elasticManager->multiMatch(Table::QUIZ, $name, [SearchedQuiz::name], 2);
-        $search = $this->explorer->query("SELECT * FROM " . Table::QUIZ . " WHERE match(". SearchedQuiz::name .") AGAINST(?)", [$name])->fetchPairs();
+        if($this->elasticManager->getClient()->isEnabled()) return $this->elasticManager->multiMatch(Table::QUIZ, $name, [Quiz::name], 2);
+        $search = $this->explorer->query("SELECT * FROM " . Table::QUIZ . " WHERE match(". Quiz::name .") AGAINST(?)", [$name])->fetchAll();
         return Table::toJSON(Table::QUIZ, $search);
     }
 }
