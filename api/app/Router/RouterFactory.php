@@ -41,8 +41,9 @@ final class RouterFactory
         $router[] = new ApiRoute("/categories/find/<categoryName>", "Categories:find");
         $router[] = new ApiRoute("/categories/find/<categoryName>/quizzes", "Categories:findQuizzes");
 
-        $router->withModule("Quizzes")->addRoute("/api/quizzes/search/<name>", "Search:read"); // ApiRoute doesn't support spaces (%20) and some special characters in URL
-        $router[] = new ApiRoute("/quizzes/all/<pagination>?orderBy=[<orderBy>]", "Quizzes:all");
+        $router->withModule("Quizzes") // ApiRoute doesn't support spaces (%20) and some special characters in URL
+            ->addRoute("/api/quizzes/all/<page>?order=[<order>]", "All:read")
+            ->addRoute("/api/quizzes/search/<name>", "Search:read");
         $router[] = new ApiRoute("/quizzes/find/<id>/categories", "Quizzes:findCategories");
         $router[] = new ApiRoute("/quizzes/find/<id>/questions", "Quizzes:findQuestions");
         $router[] = new ApiRoute("/quizzes/find/<id>/reviews", "Quizzes:findReviews");
