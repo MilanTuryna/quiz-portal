@@ -19,11 +19,15 @@ use Tracy\Debugger;
  */
 class ElasticaExtension extends CompilerExtension
 {
-
+    /**
+     * @return Schema
+     */
     public function getConfigSchema(): Schema
     {
         // https://github.com/ruflin/Elastica/blob/master/src/ClientConfiguration.php#L26
+        // + enabled
         $clientConfig = [
+            'enabled' => Expect::bool()->dynamic(), // added for option enabling elastic search
             'host' => Expect::string()->nullable()->dynamic(),
             'port' => Expect::int()->nullable()->dynamic(),
             'path' => Expect::string()->nullable(),
@@ -71,6 +75,9 @@ class ElasticaExtension extends CompilerExtension
         }
     }
 
+    /**
+     * @param ClassType $class
+     */
     public function afterCompile(ClassType $class): void
     {
         $initialize = $class->getMethod('initialize');
