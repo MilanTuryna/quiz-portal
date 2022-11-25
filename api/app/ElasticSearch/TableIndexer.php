@@ -15,30 +15,21 @@ use Nette\Database\Explorer;
  */
 class TableIndexer
 {
-    private string $indexName;
     private Explorer $explorer;
     private Client $client;
 
     /**
      * TableIndexer constructor.
-     * @param Settings $settings
      * @param Explorer $explorer
      * @param Client $client
      */
-    public function __construct(Settings $settings, Explorer $explorer, Client $client) {
+    public function __construct(Explorer $explorer, Client $client) {
         $this->explorer = $explorer;
         $this->client = $client;
-        $this->indexName = $settings->getIndex();
     }
 
     /**
-     * @param string $indexName
-     */
-    public function setIndexName(string $indexName): void {
-        $this->indexName = $indexName;
-    }
-
-    /**
+     * Table = Index!
      * @param string $table
      * @return int
      */
@@ -48,7 +39,7 @@ class TableIndexer
          * @var $rows Quiz[]
          */
         $rows = $this->explorer->table($table)->fetchAll();
-        $index = $this->client->getIndex($this->indexName);
+        $index = $this->client->getIndex($table);
         $mapping = $index->getMapping()['properties'];
 
         $documents = [];
