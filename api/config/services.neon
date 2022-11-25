@@ -1,5 +1,7 @@
 services:
 	router: App\Router\RouterFactory::createRouter
+
+	elasticSearch.elasticManager: App\ElasticSearch\ElasticManager
 	elasticSearch.settings: App\ElasticSearch\Settings('quizzes')
 	elasticSearch.tableIndexer: App\ElasticSearch\TableIndexer
 
