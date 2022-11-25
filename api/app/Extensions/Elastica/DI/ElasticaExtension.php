@@ -25,7 +25,7 @@ class ElasticaExtension extends CompilerExtension
     public function getConfigSchema(): Schema
     {
         // https://github.com/ruflin/Elastica/blob/master/src/ClientConfiguration.php#L26
-        // + enabled
+        // from elastica config it's difference 'enabled'
         $clientConfig = [
             'enabled' => Expect::bool()->dynamic(), // added for option enabling elastic search
             'host' => Expect::string()->nullable()->dynamic(),
@@ -64,8 +64,11 @@ class ElasticaExtension extends CompilerExtension
     {
         $builder = $this->getContainerBuilder();
 
+        $elasticaConfig = $this->config->config;
+        $enabled = $elasticaConfig['enabled'];
+        unset($elasticaConfig['enabled']);
         $elastica = $builder->addDefinition($this->prefix('client'))
-            ->setFactory(ExtensionClient::class, [$this->config->config]);
+            ->setFactory(ExtensionClient::class, [$this->config->config, $enabled]);
 
         if ($this->config->debug) {
             $builder->addDefinition($this->prefix('panel'))
