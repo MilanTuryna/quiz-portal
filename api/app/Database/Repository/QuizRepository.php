@@ -4,11 +4,9 @@ namespace App\Database\Repository;
 
 use App\Database\Table;
 use App\ElasticSearch\AbstractRepository;
-use App\ElasticSearch\ElasticaUtils;
-use App\Http\ResponseFormatter;
-use App\Extensions\Elastica\Client;
+use App\ElasticSearch\ElasticManager;
+use App\ElasticSearch\Entity\SearchedQuiz;
 use Nette\Database\Explorer;
-use Elastica;
 
 /**
  * Class QuizRepository
@@ -16,19 +14,18 @@ use Elastica;
  */
 class QuizRepository extends AbstractRepository
 {
-    private Client $esClient;
+    private ElasticManager $elasticManager;
 
     /**
      * QuizRepository constructor.
      * @param Explorer $explorer
-     * @param Client $esClient
-     * @param ResponseFormatter $responseFormatter
+     * @param ElasticManager $elasticManager
      */
-    public function __construct(Explorer $explorer, Client $esClient, ResponseFormatter $responseFormatter)
+    public function __construct(Explorer $explorer, ElasticManager $elasticManager)
     {
         parent::__construct(Table::QUIZ, $explorer);
 
-        $this->esClient = $esClient;
+        $this->elasticManager = $elasticManager;
     }
 
     /**
@@ -36,21 +33,8 @@ class QuizRepository extends AbstractRepository
      * Maybe add as filtered term description also
      */
     public function search(string $name): array {
-        $search = new Elastica\Search($this->esClient);
-        $query = [
-            'index' => 'quiz-portal',
-            'type' => Table::QUIZ,
-            'body' => [
-                'query' => [
-                    'filtered' => [
-                        'term' => [
-                            'name' => $name
-                        ]
-                    ]
-                ]
-            ]
-        ];
-        $result = $search->setQuery($query)->getQuery()->toArray();
-        return ElasticaUtils::formatSearch(Table::QUIZ, $result);
+        if($this->elasticManager->getClient()->isEnabled()) return $this->elasticManager->multiMatch(Table::QUIZ, $name, [SearchedQuiz::name], 2);
+        $search = $this->explorer->query("SELECT * FROM " . Table::QUIZ . " WHERE match(". SearchedQuiz::name .") AGAINST(?)", [$name])->fetchPairs();
+        return Table::toJSON(Table::QUIZ, $search);
     }
 }
