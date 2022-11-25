@@ -29,16 +29,6 @@ final class ResponseFormatter
     }
 
     /**
-     * @param array $payload
-     * @param int $code
-     * @return array
-     */
-    public function formatPayload(array $payload, int $code): array
-    {
-        return $this->formatContent(["payload" => $payload], $code);
-    }
-
-    /**
      * @param Throwable $e
      * @param int|null $code
      * @return array
