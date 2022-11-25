@@ -21,7 +21,7 @@ class Client extends \Elastica\Client
      * If $enabled is false, then it's throws DisabledExtension exception every time it's called
      * @var bool $enabled
      */
-    public bool $enabled;
+    private bool $enabled;
 
     /** @var callable[] */
     public array $onSuccess = [];
@@ -34,13 +34,26 @@ class Client extends \Elastica\Client
      */
     public function __call($name, $args)
     {
-        if(!$this->enabled)
+        if(!$this->enabled && $name !== "isEnabled")
             throw new DisabledExtension("Extension Elastica is disabled now. It is possible to be enabled in future, but edit your code and handle this problem/situation.");
     }
 
+    /**
+     * Client constructor.
+     * @param array $config
+     * @param bool $enabled
+     * @param callable|null $callback
+     * @param LoggerInterface|null $logger
+     */
     public function __construct($config = [], $enabled = true, ?callable $callback = null, ?LoggerInterface $logger = null)
     {
+        $this->enabled = $enabled;
+
         parent::__construct($config, $callback, $logger);
+    }
+
+    public function isEnabled(): bool {
+        return $this->enabled;
     }
 
     /**
