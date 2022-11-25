@@ -2,8 +2,6 @@
 
 namespace App\Database;
 
-use Nette\Database\Table\ActiveRow;
-
 /**
  * Class Table
  * @package App\Database
@@ -14,7 +12,7 @@ class Table
 
     /**
      * @param string $table
-     * @param ActiveRow[] $rows
+     * @param array $rows
      * @return array
      */
     public static function toJSON(string $table, array $rows): array {
