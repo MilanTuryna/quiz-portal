@@ -49,7 +49,7 @@ class Client extends \Elastica\Client
     {
         $this->enabled = $enabled;
 
-        parent::__construct($config, $callback, $logger);
+        if($this->enabled) parent::__construct($config, $callback, $logger);
     }
 
     public function isEnabled(): bool {
