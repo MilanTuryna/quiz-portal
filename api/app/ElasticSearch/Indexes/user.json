@@ -1,0 +1,28 @@
+{
+  "settings" : {
+    "number_of_shards" : 1,
+    "number_of_replicas" : 1
+  },
+  "mappings" : {
+    "properties" : {
+      "name" : {
+        "type": "text"
+      },
+      "description": {
+        "type": "text"
+      },
+      "categoryId": {
+        "type": "integer"
+      },
+      "difficulty": {
+        "type": "byte"
+      },
+      "userId": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "integer"
+      }
+    }
+  }
+}
