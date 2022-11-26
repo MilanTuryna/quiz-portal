@@ -35,6 +35,6 @@ final class ResponseFormatter
      */
     public function formatException(Throwable $e, int $code = null): array
     {
-        return $this->formatContent(["error" => $e->getMessage()], $code ?: $e->getCode(), self::STATUS_ERROR);
+        return $this->formatContent(["error" => ["message" => $e->getMessage(), "code" => $e->getCode(), "exception" => get_class($e)]], $code ?: $e->getCode(), self::STATUS_ERROR);
     }
 }
