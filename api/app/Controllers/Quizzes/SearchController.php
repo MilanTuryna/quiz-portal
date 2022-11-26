@@ -37,9 +37,14 @@ class SearchController extends BaseController
      * @throws AbortException
      */
     public function actionRead(string $name): void {
-        $search = $this->quizRepository->search($name);
-        $content = $this->formatter->formatContent($search, 200);
-        $response = new JsonResponse($content, 200, true);
+        $code = 200;
+        try {
+            $search = $this->quizRepository->search($name);
+            $content = $this->formatter->formatContent($search, $code);
+        } catch (\Exception $exception) {
+            $content = $this->formatter->formatException($exception);
+        }
+        $response = new JsonResponse($content, $code, true);
         $this->sendResponse($response);
     }
 }
