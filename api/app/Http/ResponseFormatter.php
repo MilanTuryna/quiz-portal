@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Exceptions\HttpClientException;
+use App\Http\Exceptions\Messages;
+use Nette\Database\DriverException;
 use Throwable;
 
 /**
@@ -29,12 +32,20 @@ final class ResponseFormatter
     }
 
     /**
-     * @param Throwable $e
+     * @param Throwable $exception
      * @param int|null $code
      * @return array
      */
-    public function formatException(Throwable $e, int $code = null): array
+    public function formatException(Throwable $exception, int $code = null): array
     {
-        return $this->formatContent(["error" => ["message" => $e->getMessage(), "code" => $e->getCode(), "exception" => get_class($e)]], $code ?: $e->getCode(), self::STATUS_ERROR);
+        if($exception instanceof DriverException) {
+            if(!$code) $code = 400;
+            $message = Messages::SQL_EXCEPTION;
+        } else {
+            $message = get_class($exception);
+            if(!$code) $code = 500;
+        }
+        $clientException = new HttpClientException($message, $exception);
+        return $this->formatContent(["error" => ["message" => $message, "code" => $clientException->getCode(), "exception" => get_class($exception)]], $code ?: $clientException->getCode(), self::STATUS_ERROR);
     }
 }
