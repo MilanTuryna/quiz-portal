@@ -9,6 +9,6 @@ namespace App\Http\Exceptions;
  */
 final class Messages
 {
-    const BAD_INPUT_REQUEST = "BAD_INPUT_REQUEST";
+    const SQL_EXCEPTION = "SQL_EXCEPTION_REQUEST"; // maybe bad request input, etc.
     const CONNECTION_EXCEPTION = "CONNECTION_EXCEPTION";
 }
