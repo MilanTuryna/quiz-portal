@@ -9,6 +9,13 @@ namespace App\Database;
 class Table
 {
     const QUIZ = "quiz";
+    const CATEGORY = "category";
+    const QUESTION = "question";
+    const REVIEW = "review";
+    const TAG = "tag";
+    const USER = "user";
+    const POINTS = "points";
+    const POINTS_TRANSACTION = "points_transaction";
 
     /**
      * @param string $table
