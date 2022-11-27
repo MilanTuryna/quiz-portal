@@ -3,10 +3,6 @@
 namespace App\Http;
 
 use App\Http\Exceptions\HttpClientException;
-use App\Http\Exceptions\Messages;
-use Nette\Database\DriverException;
-use Throwable;
-
 /**
  * Class ResponseFormatter
  * @package App\Http
@@ -25,27 +21,22 @@ final class ResponseFormatter
     public function formatContent(array $content, int $code, string $status = self::STATUS_OK): array
     {
         return [
-            'status' => self::STATUS_OK,
+            'status' => $status,
             'code' => $code,
             'content' => $content
         ];
     }
 
     /**
-     * @param Throwable $exception
+     * @param HttpClientException $clientException
      * @param int|null $code
      * @return array
      */
-    public function formatException(Throwable $exception, int $code = null): array
+    public function formatException(HttpClientException $clientException, int $code): array
     {
-        if($exception instanceof DriverException) {
-            if(!$code) $code = 400;
-            $message = Messages::SQL_EXCEPTION;
-        } else {
-            $message = get_class($exception);
-            if(!$code) $code = 500;
-        }
-        $clientException = new HttpClientException($message, $exception);
-        return $this->formatContent(["error" => ["message" => $message, "code" => $clientException->getCode(), "exception" => get_class($exception)]], $code ?: $clientException->getCode(), self::STATUS_ERROR);
+        $splitClassName = explode("\\", get_class($clientException->getServerException()));
+        $exceptionName = end($splitClassName);
+        $message = $clientException->getMessage() === "" ? $exceptionName : $clientException->getMessage();
+        return $this->formatContent(["error" => ["message" => $message, "code" => $clientException->getCode(), "exception" => $exceptionName]], $code, self::STATUS_ERROR);
     }
 }
