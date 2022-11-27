@@ -11,8 +11,8 @@ final class User
 {
     const email = "email";
     const nickname = "nickname";
-    const passwords = "passwords";
-    const datetime = "datetime";
+    const password = "password";
+    const date_created = "date_created";
     const hideFinishedQuizzes = "hideFinishedQuizzes";
     const points = "points";
     const id = "id";
