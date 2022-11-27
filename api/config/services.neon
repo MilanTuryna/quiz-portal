@@ -7,3 +7,10 @@ services:
 	responseFormatter: App\Http\ResponseFormatter
 
 	repository.quizRepository: App\Database\Repository\QuizRepository
+	repository.categoryRepository: App\Database\Repository\CategoryRepository
+	repository.pointsRepository: App\Database\Repository\PointsRepository
+	repository.pointsTransactionRepository: App\Database\Repository\PointsTransactionRepository
+	repository.questionRepository: App\Database\Repository\QuestionRepository
+	repository.reviewRepository: App\Database\Repository\ReviewRepository
+	repository.tagRepository: App\Database\Repository\TagRepository
+	repository.userRepository: App\Database\Repository\UserRepository
