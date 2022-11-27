@@ -10,7 +10,7 @@ use App\Controllers\BaseController;
  * Class HomeController
  * @package App\Controllers
  */
-abstract class HomeController extends BaseController
+class HomeController extends BaseController
 {
     /**
      * @throws AbortException
