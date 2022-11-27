@@ -38,12 +38,8 @@ class SearchController extends BaseController
      */
     public function actionRead(string $name): void {
         $code = 200;
-        try {
-            $search = $this->quizRepository->search($name);
-            $content = $this->formatter->formatContent($search, $code);
-        } catch (\Exception $exception) {
-            $content = $this->formatter->formatException($exception);
-        }
+        $search = $this->quizRepository->search($name);
+        $content = $this->formatter->formatContent($search, $code);
         $response = new JsonResponse($content, $code, true);
         $this->sendResponse($response);
     }
