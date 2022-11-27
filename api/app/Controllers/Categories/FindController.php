@@ -2,23 +2,25 @@
 
 namespace App\Controllers\Categories;
 
-use App\Controllers\BaseController;
+use App\Controllers\FindBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
 
 /**
  * Class FindController
  * @package App\Controllers\Categories
  */
-class FindController extends BaseController
+class FindController extends FindBaseController
 {
-    public function actionRead() {
-
-    }
-
-    public function actionDelete() {
-
-    }
-
-    public function actionUpdate() {
-
+    /**
+     * FindController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\CategoryRepository $repository
+     */
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\CategoryRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }
