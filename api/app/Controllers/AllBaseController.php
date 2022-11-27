@@ -14,7 +14,7 @@ use Nette\Database\Explorer;
  * Class AllBaseController
  * @package App\Controllers
  */
-class AllBaseController extends BaseController
+abstract class AllBaseController extends BaseController
 {
     protected Repository $repository;
 

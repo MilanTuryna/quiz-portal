@@ -14,7 +14,7 @@ use Nette\Utils\JsonException;
  * Class BaseController
  * @package App\Controllers
  */
-class BaseController extends Presenter
+abstract class BaseController extends Presenter
 {
     protected ResponseFormatter $formatter;
     protected Explorer $explorer;

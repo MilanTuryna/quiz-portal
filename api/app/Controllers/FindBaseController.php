@@ -15,7 +15,7 @@ use Nette\Utils\JsonException;
  * Class FindBaseController
  * @package App\Controllers
  */
-class FindBaseController extends BaseController
+abstract class FindBaseController extends BaseController
 {
     protected Repository $repository;
 
