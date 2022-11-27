@@ -1,19 +1,25 @@
 <?php
 
+namespace App\Controllerse\Questions;
+
+use App\Controllers\FindBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
+
 /**
  * Class FindController
  */
-class FindController
+class FindController extends FindBaseController
 {
-    public function actionRead(int $id) {
-
-    }
-
-    public function actionUpdate(int $id) {
-
-    }
-
-    public function actionDelete(int $id) {
-
+    /**
+     * FindController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\QuestionRepository $repository
+     */
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\QuestionRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }

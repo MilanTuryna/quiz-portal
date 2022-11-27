@@ -4,22 +4,25 @@
 namespace App\Controllers\Quizzes;
 
 
-use App\Http\Responses\JsonResponse;
-use Nette\Application\AbortException;
-use App\Controllers\BaseController;
+use App\Controllers\NewBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
 
 /**
  * Class NewController
  * @package App\Controllers\Quizzes
  */
-class NewController extends BaseController
+class NewController extends NewBaseController
 {
     /**
-     * @throws AbortException
+     * NewController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\QuizRepository $quizRepository
      */
-    public function actionCreate() {
-        $content = $this->formatter->formatContent(["message" => "create"], 201);
-        $response = new JsonResponse($content);
-        $this->sendResponse($response);
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\QuizRepository $quizRepository)
+    {
+        parent::__construct($formatter, $explorer, $quizRepository);
     }
 }

@@ -3,15 +3,25 @@
 
 namespace App\Categories\AllController;
 
+use App\Controllers\FindBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
+
 /**
  * Class FindController
  * @package App\Categories\AllController
  */
-class FindController
+class FindController extends FindBaseController
 {
     /**
-     * @param string $tagName
+     * FindController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\TagRepository $repository
      */
-    public function actionRead(string $tagName) {
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\TagRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }

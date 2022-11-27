@@ -3,16 +3,25 @@
 
 namespace App\Controllers\Users;
 
-
-use App\Controllers\BaseController;
+use App\Controllers\NewBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
 
 /**
  * Class NewController
  * @package App\Controllers\Users
  */
-class NewController extends BaseController
+class NewController extends NewBaseController
 {
-    public function actionCreate() {
-
+    /**
+     * NewController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\UserRepository $repository
+     */
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\UserRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }

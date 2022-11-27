@@ -2,19 +2,25 @@
 
 namespace App\Controllers\Reviews;
 
-use App\Controllers\BaseController;
+use App\Controllers\AllBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
 
 /**
  * Class AllController
  * @package App\Controllers\Reviews
  */
-class AllController extends BaseController
+class AllController extends AllBaseController
 {
     /**
-     * @param int $pagination
-     * @param string|null $orderBy
+     * AllController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\ReviewRepository $repository
      */
-    public function actionRead(int $pagination,?string $orderBy = null) {
-
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\ReviewRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }

@@ -4,23 +4,25 @@
 namespace App\Controllers\Reviews;
 
 
-use App\Controllers\BaseController;
+use App\Controllers\AllBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
 
 /**
  * Class FindController
  * @package App\Controllers\Reviews0
  */
-class FindController extends BaseController
+class FindController extends AllBaseController
 {
-    public function actionRead(int $id) {
-
-    }
-
-    public function actionDelete(int $id) {
-
-    }
-
-    public function actionUpdate(int $id) {
-
+    /**
+     * FindController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\ReviewRepository $repository
+     */
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\ReviewRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }

@@ -2,22 +2,25 @@
 
 namespace App\Controllers\Users;
 
-use App\Controllers\BaseController;
+use App\Controllers\FindBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
 
-class FindController extends BaseController
+/**
+ * Class FindController
+ * @package App\Controllers\Users
+ */
+class FindController extends FindBaseController
 {
     /**
-     * @param int $userId
+     * FindController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\UserRepository $repository
      */
-    public function actionRead(int $userId) {
-
-    }
-
-    public function actionDelete(int $userId) {
-
-    }
-
-    public function actionUpdate(int $userId) {
-
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\UserRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }

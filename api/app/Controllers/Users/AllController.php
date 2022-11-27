@@ -4,11 +4,25 @@
 namespace App\Controllers\Users;
 
 
-use App\Controllers\BaseController;
+use App\Controllers\AllBaseController;
+use App\Database\Repository;
+use App\Http\ResponseFormatter;
+use Nette\Database\Explorer;
 
-class AllController extends BaseController
+/**
+ * Class AllController
+ * @package App\Controllers\Users
+ */
+class AllController extends AllBaseController
 {
-    public function actionRead() {
-
+    /**
+     * AllController constructor.
+     * @param ResponseFormatter $formatter
+     * @param Explorer $explorer
+     * @param Repository\UserRepository $repository
+     */
+    public function __construct(ResponseFormatter $formatter, Explorer $explorer, Repository\UserRepository $repository)
+    {
+        parent::__construct($formatter, $explorer, $repository);
     }
 }
