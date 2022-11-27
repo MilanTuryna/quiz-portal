@@ -5,7 +5,7 @@ namespace App\Database\Repository;
 use App\Database\Entity\Quiz;
 use App\Database\Table;
 use App\Database\Repository;
-use App\Database\ElasticManager;
+use App\ElasticSearch\ElasticManager;
 use Nette\Database\Explorer;
 
 /**
