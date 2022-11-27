@@ -4,15 +4,15 @@ namespace App\Database\Repository;
 
 use App\Database\Entity\Quiz;
 use App\Database\Table;
-use App\ElasticSearch\AbstractRepository;
-use App\ElasticSearch\ElasticManager;
+use App\Database\Repository;
+use App\Database\ElasticManager;
 use Nette\Database\Explorer;
 
 /**
  * Class QuizRepository
  * @package App\Database\Repository
  */
-class QuizRepository extends AbstractRepository
+class QuizRepository extends Repository
 {
     private ElasticManager $elasticManager;
 
@@ -35,6 +35,6 @@ class QuizRepository extends AbstractRepository
     public function search(string $name): array {
         if($this->elasticManager->getClient()->isEnabled()) return $this->elasticManager->multiMatch(Table::QUIZ, $name, [Quiz::name], 2);
         $search = $this->explorer->query("SELECT * FROM " . Table::QUIZ . " WHERE match(". Quiz::name .") AGAINST(?)", [$name])->fetchAll();
-        return Table::toJSON(Table::QUIZ, $search);
+        return ["results" => $search];
     }
 }

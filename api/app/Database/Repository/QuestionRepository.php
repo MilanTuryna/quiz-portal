@@ -7,17 +7,17 @@ use App\Database\Table;
 use Nette\Database\Explorer;
 
 /**
- * Class CategoryRepository
+ * Class QuestionRepository
  * @package App\Database\Repository
  */
-class CategoryRepository extends Repository
+class QuestionRepository extends Repository
 {
     /**
-     * CategoryRepository constructor.
+     * QuestionRepository constructor.
      * @param Explorer $explorer
      */
     public function __construct(Explorer $explorer)
     {
-        parent::__construct(Table::CATEGORY, $explorer);
+        parent::__construct(Table::QUESTION, $explorer);
     }
 }
