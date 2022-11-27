@@ -12,18 +12,19 @@ use Throwable;
  */
 class HttpClientException extends Exception
 {
-    private Throwable $serverException;
+    private Exception $serverException;
 
     /**
      * ClientResponseException constructor.
      * @param string $message
-     * @param Throwable $exception
+     * @param Exception $exception
+     * @param int|null $code
      */
-    public function __construct(string $message, Throwable $exception)
+    public function __construct(string $message, Exception $exception, ?int $code = null)
     {
         $this->serverException = $exception;
 
-        parent::__construct($message, $exception->getCode());
+        parent::__construct($message, $code ?: $exception->getCode());
     }
 
     /**
