@@ -18,23 +18,11 @@ final class JsonResponse implements Response
 {
     use SmartObject;
 
-    /**
-     * @var int
-     */
     private int $httpCode;
-
-    /**
-     * @var bool
-     */
     private bool $pretty;
-
-    /**
-     * @var array
-     */
     private array $payload;
-
-    /** @var string */
     private string $contentType;
+    private int $flags;
 
 
     /**
@@ -43,13 +31,15 @@ final class JsonResponse implements Response
      * @param int $httpCode
      * @param bool $pretty
      * @param string|null $contentType
+     * @param int $flags
      */
-    public function __construct(array $payload, int $httpCode = 200, bool $pretty = false, ?string $contentType = null)
+    public function __construct(array $payload, int $httpCode = 200, bool $pretty = false, ?string $contentType = null, int $flags = 0)
     {
         $this->payload = $payload;
         $this->contentType = $contentType ?: 'application/json';
         $this->httpCode = $httpCode;
         $this->pretty = $pretty;
+        $this->flags = $flags;
     }
 
 
@@ -73,12 +63,19 @@ final class JsonResponse implements Response
 
     /**
      * Sends response to output.
-     * @throws JsonException
      */
     public function send(IRequest $httpRequest, IResponse $httpResponse): void
     {
         $httpResponse->setContentType($this->contentType, 'utf-8');
         $httpResponse->setCode(array_key_exists('code', $this->payload) ? $this->payload['code'] : $this->httpCode);
-        echo Json::encode($this->payload, $this->pretty ? JSON_PRETTY_PRINT : 0);
+        echo $this;
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function __toString(): string
+    {
+        return Json::encode($this->payload, ($this->pretty ? JSON_PRETTY_PRINT : 0)|$this->flags);
     }
 }
