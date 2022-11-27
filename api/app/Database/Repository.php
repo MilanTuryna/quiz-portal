@@ -1,15 +1,16 @@
 <?php
 
-namespace App\ElasticSearch;
+namespace App\Database;
 
 use Nette\Database\Explorer;
+use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 
 /**
  * Class AbstractRepository
- * @package App\ElasticSearch
+ * @package App\Database
  */
-abstract class AbstractRepository
+abstract class Repository
 {
     protected string $table;
     protected Explorer $explorer;
@@ -31,11 +32,37 @@ abstract class AbstractRepository
     }
 
     /**
+     * @param int $id
+     * @return ActiveRow|null
+     */
+    public function findById(int $id): ?ActiveRow {
+        return $this->explorer->table($this->table)->wherePrimary($id)->fetch();
+    }
+
+    /**
+     * @param int $id
+     * @param iterable $data
+     * @return int
+     */
+    public function updateById(int $id, iterable $data): int
+    {
+        return $this->explorer->table($this->table)->wherePrimary($id)->update($data);
+    }
+
+    /**
      * @param string|null $orderQuery
      * @return Selection
      */
     public function findAll(?string $orderQuery = null): Selection {
         return $orderQuery ? $this->explorer->table($this->table)->order($orderQuery) : $this->explorer->table($this->table);
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function deleteById(int $id): int {
+        return $this->explorer->table($this->table)->wherePrimary($id)->delete();
     }
 
     /**
