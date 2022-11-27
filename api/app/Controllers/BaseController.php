@@ -7,6 +7,8 @@ namespace App\Controllers;
 use App\Http\ResponseFormatter;
 use Nette\Application\UI\Presenter;
 use Nette\Database\Explorer;
+use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 
 /**
  * Class BaseController
@@ -28,5 +30,13 @@ class BaseController extends Presenter
         $this->explorer = $explorer;
 
         parent::__construct();
+    }
+
+    /**
+     * @return array
+     * @throws JsonException
+     */
+    public function getBody(): array {
+        return Json::decode($this->getHttpRequest()->getRawBody());
     }
 }
