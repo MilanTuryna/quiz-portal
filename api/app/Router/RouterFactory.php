@@ -37,7 +37,7 @@ final class RouterFactory
         $router[] = new ApiRoute("/users/all/<pagination>", "Users:all");
         $router[] = new ApiRoute("/users/new", "Users:new");
 
-        $router[] = new ApiRoute("/categories/all/<pagination>", "Categories:all");
+        $router[] = new ApiRoute("/categories/all[/<page>]", "Categories:all");
         $router[] = new ApiRoute("/categories/find/<categoryName>", "Categories:find");
         $router[] = new ApiRoute("/categories/find/<categoryName>/quizzes", "Categories:findQuizzes");
 
