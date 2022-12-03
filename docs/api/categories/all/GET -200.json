@@ -1,0 +1,15 @@
+{
+  "status": "ok",
+  "code": 200,
+  "content": {
+    "results": [
+      {
+        "name": "Knižní fantasy",
+        "level": 0,
+        "parent_id": 0,
+        "id": 1
+      }
+    ],
+    "pagination": null
+  }
+}
