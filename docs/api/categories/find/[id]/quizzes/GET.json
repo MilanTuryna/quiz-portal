@@ -1,0 +1,16 @@
+{
+  "status": "ok",
+  "code": 200,
+  "content": [
+    {
+      "name": "Co vše víš o Harry Pottrovi?",
+      "description": "Kvíz pro všechny silné fanoušky Harryho Pottera, aby si ověřili svoje znalosti",
+      "categoryId": 1,
+      "difficulty": 5,
+      "type": "non",
+      "userId": 1,
+      "private": 0,
+      "id": 2
+    }
+  ]
+}
