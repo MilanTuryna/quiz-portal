@@ -23,13 +23,22 @@ class Table
         "categories" => Table::CATEGORY,
         "reviews" => Table::REVIEW,
         "users" => Table::USER,
-        "tags" => Table::TAG
+        "tags" => Table::TAG,
+        "points_transactions" => Table::POINTS_TRANSACTION,
+        "points" => Table::POINTS
     ];
 
     const FOREIGN_KEYS = [
         Table::QUIZ => "quizId",
         Table::USER => "userId",
         Table::CATEGORY => "categoryId"
+    ];
+
+    const RELATIONS = [
+        Table::QUIZ => [Table::FOREIGN_KEYS[Table::CATEGORY], Table::FOREIGN_KEYS[Table::USER]],
+        Table::QUESTION => [Table::FOREIGN_KEYS[Table::USER]],
+        Table::REVIEW => [Table::FOREIGN_KEYS[Table::USER], Table::FOREIGN_KEYS[Table::QUIZ]],
+        Table::TAG => [Table::FOREIGN_KEYS[Table::QUIZ]]
     ];
 
     /**
