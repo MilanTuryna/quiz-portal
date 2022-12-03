@@ -17,12 +17,12 @@ final class ResponseFormatter
     const STATUS_ERROR = "error";
 
     /**
-     * @param array $content
+     * @param mixed $content
      * @param int $code
      * @param string $status
      * @return array
      */
-    public function formatContent(array $content, int $code, string $status = self::STATUS_OK): array
+    public function formatContent($content, int $code, string $status = self::STATUS_OK): array
     {
         return [
             'status' => $status,

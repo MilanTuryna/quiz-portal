@@ -33,7 +33,7 @@ class FindController extends FindBaseController
      */
     public function actionRead($id): void {
         $row = is_numeric($id) ? $this->repository->findById($id) : $this->repository->findByColumn(Category::name, $id);
-        $data = $row ? $row->toArray() : [];
+        $data = $row ? $row->toArray() : new \stdClass();
         $code = $row ? 200 : 404;
         $content = $this->formatter->formatContent($data, $code);
         $response = new JsonResponse($content, $code, true);
