@@ -35,7 +35,7 @@ abstract class FindBaseController extends BaseController
     /**
      * @throws AbortException
      */
-    public function actionRead(int $id): void {
+    public function actionRead($id): void {
         $row = $this->repository->findById($id);
         $data = $row ? $row->toArray() : [];
         $code = $row ? 200 : 404;
