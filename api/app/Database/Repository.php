@@ -40,6 +40,15 @@ abstract class Repository
     }
 
     /**
+     * @param string $column
+     * @param string $value
+     * @return ActiveRow|null
+     */
+    public function findByColumn(string $column, string $value): ?ActiveRow {
+        return $this->explorer->table($this->table)->where($column . " = ?", $value)->fetch();
+    }
+
+    /**
      * @param int $id
      * @param iterable $data
      * @return int
