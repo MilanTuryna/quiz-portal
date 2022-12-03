@@ -41,11 +41,11 @@ abstract class AllBaseController extends BaseController
         $lastPage = null;
         $responseContent = $this->formatter->formatContent([
             "results" => array_values(array_map(fn($activeRow) => $activeRow->toArray(), $page ? $quizzes->page($page, 30, $lastPage)->fetchAll() : $quizzes->fetchAll())),
-            "pagination" => [
+            "pagination" => $page ? [
                 "page" => $page,
                 "lastPage" => $lastPage,
                 "pageExist" => !($page > $lastPage),
-            ]
+            ]: null
         ],200);
         $response = new JsonResponse($responseContent, 200, true);
         $this->sendResponse($response);
