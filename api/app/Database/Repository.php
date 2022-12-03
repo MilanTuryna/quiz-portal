@@ -10,7 +10,7 @@ use Nette\Database\Table\Selection;
  * Class AbstractRepository
  * @package App\Database
  */
-abstract class Repository
+class Repository
 {
     protected string $table;
     protected Explorer $explorer;
