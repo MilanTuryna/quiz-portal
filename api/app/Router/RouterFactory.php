@@ -39,7 +39,8 @@ final class RouterFactory
 
         $router[] = new ApiRoute("/categories/all[/<page>]", "Categories:all");
         $router[] = new ApiRoute("/categories/find/<id>", "Categories:find"); // it's possible to send category name instead id
-        $router[] = new ApiRoute("/categories/find/<id>/quizzes", "Categories:findQuizzes");
+
+        $router[] = new ApiRoute("/<table>/find/<id>/<related>", "FindRelated");
 
         $router->withModule("Quizzes") // ApiRoute doesn't support spaces (%20) and some special characters in URL
             ->addRoute("/api/quizzes/all/<page>?order=[<order>]", "All:read")
@@ -58,6 +59,7 @@ final class RouterFactory
 
         $router[] = new ApiRoute("/tags/all/<pagination>", "Tags:all");
         $router[] = new ApiRoute("/tags/find/<tagName>", "Tags:find");
+
 
 		return $router;
 	}
