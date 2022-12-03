@@ -17,6 +17,21 @@ class Table
     const POINTS = "points";
     const POINTS_TRANSACTION = "points_transaction";
 
+    const ROUTER_TO_TABLE = [
+        "quizzes" => Table::QUIZ,
+        "questions" => Table::QUESTION,
+        "categories" => Table::CATEGORY,
+        "reviews" => Table::REVIEW,
+        "users" => Table::USER,
+        "tags" => Table::TAG
+    ];
+
+    const FOREIGN_KEYS = [
+        Table::QUIZ => "quizId",
+        Table::USER => "userId",
+        Table::CATEGORY => "categoryId"
+    ];
+
     /**
      * @param string $table
      * @param array $rows
@@ -26,5 +41,15 @@ class Table
         return [
             $table => $rows
         ];
+    }
+
+    /**
+     * @param $rows
+     * @return array
+     */
+    public static function fetchAllToArray($rows): array {
+        return array_values(array_map(function ($activeRow) {
+            return $activeRow->getIterator();
+        }, $rows));
     }
 }
