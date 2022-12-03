@@ -35,10 +35,10 @@ class FindRelatedController extends BaseController
      * @throws BadRequestException
      */
     public function actionRead(string $table, string $id, string $related, ?int $page = null) {
-        if(!array_key_exists($table, Table::ROUTER_TO_TABLE) || !array_key_exists($related, Table::ROUTER_TO_TABLE)) $this->error();
         $table = Table::ROUTER_TO_TABLE[$table];
         $related = Table::ROUTER_TO_TABLE[$related];
         $foreignKey = Table::FOREIGN_KEYS[$table];
+        if(!array_key_exists($table, Table::ROUTER_TO_TABLE) || !array_key_exists($related, Table::ROUTER_TO_TABLE) || in_array($foreignKey, Table::RELATIONS[$table])) $this->error();
         $rows = $this->explorer->table($related)->where($foreignKey . " = ?", $id);
         $lastPage = null;
         $content = $this->formatter->formatContent([
