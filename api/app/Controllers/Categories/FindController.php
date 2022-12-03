@@ -32,7 +32,7 @@ class FindController extends FindBaseController
      * @throws AbortException
      */
     public function actionRead($id): void {
-        $row = is_int($id) ? $this->repository->findById($id) : $this->repository->findByColumn(Category::name, $id);
+        $row = is_numeric($id) ? $this->repository->findById($id) : $this->repository->findByColumn(Category::name, $id);
         $data = $row ? $row->toArray() : [];
         $code = $row ? 200 : 404;
         $content = $this->formatter->formatContent($data, $code);
