@@ -2,6 +2,15 @@
 
 namespace App\Database;
 
+use App\Database\Entity\Category;
+use App\Database\Entity\Points;
+use App\Database\Entity\Points_Transaction;
+use App\Database\Entity\Question;
+use App\Database\Entity\Quiz;
+use App\Database\Entity\Review;
+use App\Database\Entity\Tag;
+use App\Database\Entity\User;
+
 /**
  * Class Table
  * @package App\Database
@@ -38,7 +47,30 @@ class Table
         Table::QUIZ => [Table::FOREIGN_KEYS[Table::CATEGORY], Table::FOREIGN_KEYS[Table::USER]],
         Table::QUESTION => [Table::FOREIGN_KEYS[Table::USER]],
         Table::REVIEW => [Table::FOREIGN_KEYS[Table::USER], Table::FOREIGN_KEYS[Table::QUIZ]],
-        Table::TAG => [Table::FOREIGN_KEYS[Table::QUIZ]]
+        Table::TAG => [Table::FOREIGN_KEYS[Table::QUIZ]],
+    ];
+
+    const ENTITIES = [
+        Table::CATEGORY => Category::class,
+        Table::POINTS => Points::class,
+        Table::POINTS_TRANSACTION => Points_Transaction::class,
+        Table::QUESTION => Question::class,
+        Table::QUIZ => Quiz::class,
+        Table::REVIEW => Review::class,
+        Table::TAG => Tag::class,
+        Table::USER => User::class
+    ];
+
+    // Values we can see show using public API
+    const ALLOWED_VALUES = [
+        Table::USER => [ // for example we can return all users, but without password and email
+            User::nickname,
+            User::id,
+            User::date_created,
+            User::hideFinishedQuizzes,
+            User::points,
+        ],
+        Table::QUIZ => "*"
     ];
 
     /**

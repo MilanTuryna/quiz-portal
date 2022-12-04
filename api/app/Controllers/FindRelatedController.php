@@ -35,11 +35,17 @@ class FindRelatedController extends BaseController
      * @throws BadRequestException
      */
     public function actionRead(string $table, string $id, string $related, ?int $page = null) {
-        $table = Table::ROUTER_TO_TABLE[$table];
-        $related = Table::ROUTER_TO_TABLE[$related];
-        $foreignKey = Table::FOREIGN_KEYS[$table];
-        if(!array_key_exists($table, Table::ROUTER_TO_TABLE) || !array_key_exists($related, Table::ROUTER_TO_TABLE) || in_array($foreignKey, Table::RELATIONS[$table])) $this->error();
-        $rows = $this->explorer->table($related)->where($foreignKey . " = ?", $id);
+        // Checking if it's possible to create query from client inputs (checking is column exist, relations etc.)
+        $table = array_key_exists($table, Table::ROUTER_TO_TABLE) ? Table::ROUTER_TO_TABLE[$table] : null;
+        $foreignKey = array_key_exists($table, Table::FOREIGN_KEYS) ? Table::FOREIGN_KEYS[$table] : null;
+        $related = array_key_exists($related, Table::ROUTER_TO_TABLE) ? Table::ROUTER_TO_TABLE[$related] : null;
+        if(!$table || !$foreignKey || !$related || !in_array($foreignKey, Table::RELATIONS[$related])) $this->error();
+
+        // Checking if entity of $related table has private column, if yes, select only non-private results (rows)
+        $hasPrivateColumn = property_exists(Table::ENTITIES[$related], "private");
+        $whereQuery = $foreignKey . " = ?" . ($hasPrivateColumn ? ' AND private = 0' : "");
+
+        $rows = $this->explorer->table($related)->where($whereQuery, $id);
         $lastPage = null;
         $content = $this->formatter->formatContent([
             "results" => Table::fetchAllToArray($page ? $rows->page($page, 30, $lastPage)->fetchAll() : $rows->fetchAll()),
