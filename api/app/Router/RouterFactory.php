@@ -30,11 +30,10 @@ final class RouterFactory
 		$router = new RouteList;
 		$router->addRoute("/api", "Home:default");
 
-		$router[] = new ApiRoute("/users/search/<username>", "Users:search");
+		$router[] = new ApiRoute("/users/search/<username>", "Users:search"); // TODO: zlepšit systém vyhledávání
 		$router[] = new ApiRoute("/users/find/<id>", "Users:find");
-        $router[] = new ApiRoute("/users/find/<id>/reviews", "Users:findCategories"); // TODO: zkusit udělat i na withModule
-        $router[] = new ApiRoute("/users/find/<id>/quizzes", "Users:findQuizzes");
-        $router[] = new ApiRoute("/users/all/<pagination>", "Users:all");
+
+        $router[] = new ApiRoute("/users/all[/<page>]", "Users:all");
         $router[] = new ApiRoute("/users/new", "Users:new");
 
         $router[] = new ApiRoute("/categories/all[/<page>]", "Categories:all");
@@ -53,6 +52,7 @@ final class RouterFactory
 
         $router[] = new ApiRoute("/questions/find/<id>", "Questions:find");
 
+        //ok
         $router[] = new ApiRoute("/tags/all[/<page>]", "Tags:all");
         $router[] = new ApiRoute("/tags/find/<id>", "Tags:find");
 
