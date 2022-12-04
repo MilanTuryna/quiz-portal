@@ -42,12 +42,8 @@ class FindRelatedController extends BaseController
         $related = array_key_exists($related, Table::ROUTER_TO_TABLE) ? Table::ROUTER_TO_TABLE[$related] : null;
         if(!$table || !$foreignKey || !$related || !in_array($foreignKey, Table::RELATIONS[$related])) $this->error();
 
-        // Checking if entity of $related table has private column, if yes, select only non-private results (rows)
-        $hasPrivateColumn = property_exists(Table::ENTITIES[$related], "private");
-        $whereQuery = $foreignKey . " = ?" . ($hasPrivateColumn ? ' AND private = 0' : "");
-
         $repository = new Repository($related, $this->explorer);
-        $rows = $repository->findAll()->where($whereQuery, $id);
+        $rows = $repository->findAll()->where($foreignKey . " = ?", $id);
         $lastPage = null;
         $content = $this->formatter->formatContent([
             "results" => Table::fetchAllToArray($page ? $rows->page($page, 30, $lastPage)->fetchAll() : $rows->fetchAll()),
@@ -55,7 +51,7 @@ class FindRelatedController extends BaseController
                 "page" => $page,
                 "lastPage" => $lastPage,
                 "pageExist" => !($page > $lastPage)
-            ] : null
+            ] : null,
         ], 200);
         $response = new JsonResponse($content, 200, true);
         $this->sendResponse($response);
