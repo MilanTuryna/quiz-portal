@@ -53,7 +53,7 @@ final class RouterFactory
 
         $router[] = new ApiRoute("/questions/find/<id>", "Questions:find");
 
-        $router[] = new ApiRoute("/tags/all/<pagination>", "Tags:all");
+        $router[] = new ApiRoute("/tags/all[/<page>]", "Tags:all");
         $router[] = new ApiRoute("/tags/find/<tagName>", "Tags:find");
 
 
