@@ -32,8 +32,8 @@ final class RouterFactory
 
 		$router[] = new ApiRoute("/users/search/<username>", "Users:search"); // TODO: zlepšit systém vyhledávání
 		$router[] = new ApiRoute("/users/find/<id>", "Users:find");
-
         $router[] = new ApiRoute("/users/all[/<page>]", "Users:all");
+        // todo
         $router[] = new ApiRoute("/users/new", "Users:new");
 
         $router[] = new ApiRoute("/categories/all[/<page>]", "Categories:all");
@@ -42,17 +42,17 @@ final class RouterFactory
         $router[] = new ApiRoute("/<table>/find/<id>/<related>[/<page>]", "FindRelated");
 
         $router->withModule("Quizzes") // ApiRoute doesn't support spaces (%20) and some special characters in URL
-            ->addRoute("/api/quizzes/all[/<page>]?order=[<order>]", "All:read")
+            ->addRoute("/api/quizzes/all[/<page>]?order=[<order>]", "All:read") // maybe sql security problem
             ->addRoute("/api/quizzes/search/<name>", "Search:read");
         $router[] = new ApiRoute("/quizzes/find/<id>", "Quizzes:find");
-        $router[] = new ApiRoute("/quiz/new", "Quizzes:new");
 
-        $router[] = new ApiRoute("/reviews/all/<pagination>?orderBy=[<orderBy>]", "Reviews:all");
+        $router[] = new ApiRoute("/quiz/new", "Quizzes:new");
+        $router->withModule("Reviews")
+            ->addRoute("/api/reviews/all[/<page>]?orderBy=[<orderBy>]", "All:read");
         $router[] = new ApiRoute("/reviews/find/<id>", "Reviews:find");
 
         $router[] = new ApiRoute("/questions/find/<id>", "Questions:find");
 
-        //ok
         $router[] = new ApiRoute("/tags/all[/<page>]", "Tags:all");
         $router[] = new ApiRoute("/tags/find/<id>", "Tags:find");
 
