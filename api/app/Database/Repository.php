@@ -33,19 +33,24 @@ class Repository
 
     /**
      * @param int $id
+     * @param array|null $select
      * @return ActiveRow|null
      */
-    public function findById(int $id): ?ActiveRow {
-        return $this->explorer->table($this->table)->wherePrimary($id)->fetch();
+    public function findById(int $id, ?array $select = null): ?ActiveRow {
+        if(!$select) $select = array_key_exists($this->table, Table::ALLOWED_VALUES) ? Table::ALLOWED_VALUES[$this->table] : ["*"];
+        $table = $this->explorer->table($this->table)->wherePrimary($id);
+        return $select ? $table->select(implode(",",$select))->fetch() : $table->fetch();
     }
 
     /**
      * @param string $column
      * @param string $value
+     * @param array|null $select
      * @return ActiveRow|null
      */
-    public function findByColumn(string $column, string $value): ?ActiveRow {
-        return $this->explorer->table($this->table)->where($column . " = ?", $value)->fetch();
+    public function findByColumn(string $column, string $value, ?array $select = null): ?ActiveRow {
+        if(!$select) $select = array_key_exists($this->table, Table::ALLOWED_VALUES) ? Table::ALLOWED_VALUES[$this->table] : ['*'];
+        return $this->explorer->table($this->table)->select(implode(",",$select))->where($column . " = ?", $value)->fetch();
     }
 
     /**
@@ -60,10 +65,13 @@ class Repository
 
     /**
      * @param string|null $orderQuery
+     * @param array|null $select
      * @return Selection
      */
-    public function findAll(?string $orderQuery = null): Selection {
-        return $orderQuery ? $this->explorer->table($this->table)->order($orderQuery) : $this->explorer->table($this->table);
+    public function findAll(?string $orderQuery = null, ?array $select = null): Selection {
+        if(!$select) $select = array_key_exists($this->table, Table::ALLOWED_VALUES) ? Table::ALLOWED_VALUES[$this->table] : ['*']; // * must be in array because implode
+        $orderBuild = $orderQuery ? $this->explorer->table($this->table)->order($orderQuery) : $this->explorer->table($this->table);
+        return $orderBuild->select(implode(",", $select));
     }
 
     /**
