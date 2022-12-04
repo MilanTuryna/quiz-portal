@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllerse\Questions;
+namespace App\Controllers\Questions;
 
 use App\Controllers\FindBaseController;
 use App\Database\Repository;
