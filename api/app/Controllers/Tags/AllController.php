@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Categories\AllController;
+namespace App\Controllers\Tags;
 
 use App\Controllers\AllBaseController;
 use App\Database\Repository;
