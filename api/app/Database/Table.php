@@ -45,7 +45,7 @@ class Table
 
     const RELATIONS = [
         Table::QUIZ => [Table::FOREIGN_KEYS[Table::CATEGORY], Table::FOREIGN_KEYS[Table::USER]],
-        Table::QUESTION => [Table::FOREIGN_KEYS[Table::USER]],
+        Table::QUESTION => [Table::FOREIGN_KEYS[Table::QUIZ]],
         Table::REVIEW => [Table::FOREIGN_KEYS[Table::USER], Table::FOREIGN_KEYS[Table::QUIZ]],
         Table::TAG => [Table::FOREIGN_KEYS[Table::QUIZ]],
     ];
