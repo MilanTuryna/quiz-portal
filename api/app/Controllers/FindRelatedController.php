@@ -3,6 +3,7 @@
 
 namespace App\Controllers;
 
+use App\Database\Repository;
 use App\Database\Table;
 use App\Http\ResponseFormatter;
 use App\Http\Responses\JsonResponse;
@@ -45,7 +46,8 @@ class FindRelatedController extends BaseController
         $hasPrivateColumn = property_exists(Table::ENTITIES[$related], "private");
         $whereQuery = $foreignKey . " = ?" . ($hasPrivateColumn ? ' AND private = 0' : "");
 
-        $rows = $this->explorer->table($related)->where($whereQuery, $id);
+        $repository = new Repository($related, $this->explorer);
+        $rows = $repository->findAll()->where($whereQuery, $id);
         $lastPage = null;
         $content = $this->formatter->formatContent([
             "results" => Table::fetchAllToArray($page ? $rows->page($page, 30, $lastPage)->fetchAll() : $rows->fetchAll()),
