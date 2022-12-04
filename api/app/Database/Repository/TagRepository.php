@@ -2,6 +2,7 @@
 
 namespace App\Database\Repository;
 
+use App\Database\Entity\Tag;
 use App\Database\Repository;
 use App\Database\Table;
 use Nette\Database\Explorer;
@@ -39,6 +40,6 @@ class TagRepository extends Repository
      */
     public function findAll(?string $orderQuery = null, ?array $select = null, bool $includesPrivate = false): Selection
     {
-        return parent::findAll()->group("tag");
+        return parent::findAll()->group(Tag::tag);
     }
 }
