@@ -69,8 +69,7 @@ class Table
             User::date_created,
             User::hideFinishedQuizzes,
             User::points,
-        ],
-        Table::QUIZ => "*"
+        ]
     ];
 
     /**
