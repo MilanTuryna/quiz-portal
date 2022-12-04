@@ -37,10 +37,10 @@ abstract class AllBaseController extends BaseController
      * @throws AbortException
      */
     public function actionRead(?int $page = null, ?string $order = null): void {
-        $quizzes = $this->repository->findAll($order);
+        $results = $this->repository->findAll($order);
         $lastPage = null;
         $responseContent = $this->formatter->formatContent([
-            "results" => array_values(array_map(fn($activeRow) => $activeRow->toArray(), $page ? $quizzes->page($page, 30, $lastPage)->fetchAll() : $quizzes->fetchAll())),
+            "results" => array_values(array_map(fn($activeRow) => $activeRow->toArray(), $page ? $results->page($page, 30, $lastPage)->fetchAll() : $results->fetchAll())),
             "pagination" => $page ? [
                 "page" => $page,
                 "lastPage" => $lastPage,
